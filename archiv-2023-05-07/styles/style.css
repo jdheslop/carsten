@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Responsive layout: When the screen is less than 700px wide,
+make two columns stack on top of each other instead of next to 
+each other 
+@media screen and (max-width: 700px) {
+    #game {
+        flex-direction: column;
+    }
+} */
+
+body {
+   text-align: center;
+}
+
+#game {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    border: 3px solid blue;
+    padding: 1%
+}
+
+#playing_table {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 70%;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border: 3px solid green;
+
+}
+
+
+#staging_area {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    width: 70%;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    border: 3px solid red;
+}
+
+.pt_grid-item {
+    display: inline-grid;
+    border: 1px solid orange;
+    aspect-ratio: 1 / 1;
+    place-items: center;
+}
+
+.sa_grid-item {
+    display: inline-grid;
+    aspect-ratio: 1 / 1;
+    place-items: center;
+}
+
+img {
+    width: 70%;
+    aspect-ratio: 1 / 1;
+    text-align: center;
+    margin: 0;
+}
+
+#play_again {
+    margin: 1%;
+}
+
+

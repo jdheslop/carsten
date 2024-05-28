@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carsten</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- To Do Items
+        x- Need to make it so that only one item can be placed in a box -->
+
+<script>
+    function onDragStart(event) {
+        event
+            .dataTransfer
+            .setData("text", event.target.id);
+            event.dataTransfer.setDragImage(event.target, 0, 0); // Set a custom drag image
+    }
+    function onDragOver(event) {
+        event.preventDefault();        
+    }
+    function onDrop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        event.target.appendChild(document.getElementById(data));
+    }
+
+      // Touch event listeners for mobile devices
+    function touchstart(event) {
+        event.preventDefault();
+        var touch = event.touches[0];
+        var target = event.target;
+        target.classList.add("touch");
+        var offsetX = touch.clientX - target.getBoundingClientRect().left;
+        var offsetY = touch.clientY - target.getBoundingClientRect().top;
+        target.addEventListener("touchmove", function(event) {
+            var touch = event.touches[0];
+            var x = touch.clientX - offsetX;
+            var y = touch.clientY - offsetY;
+            target.style.left = x + "px";
+            target.style.top = y + "px";
+        }, false);
+    }
+
+    function touchend(event) {
+        event.preventDefault();
+        var target = event.target;
+        target.classList.remove("touch");
+    }
+
+</script>
+
+</head>
+<body>
+    <header>
+        <h1>Carsten's Game</h1>
+<!--        <p>Add link to the instructions</p> -->
+    </header>
+    <div id="game">
+        <div id="playing_table">
+            <div 
+                id="pt_1-1" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-2" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-3" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-4" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-1" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-2" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-3" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-4" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-1" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-2" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-3" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-4" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-1" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-2" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-3" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-4" 
+                class="pt_grid-item" 
+                ondragover="onDragOver(event);" 
+                ondrop="onDrop(event);"
+            ></div>
+        </div>
+
+        <div id="staging_area">
+            <div id="sa_1-1" class="sa_grid-item">
+                <img 
+                    src="images/square.jpg" 
+                    alt="square" 
+                    id="square1"
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_1-2" class="sa_grid-item">
+                <img 
+                    src="images/triangle.png" 
+                    alt="triangle" 
+                    id="triangle1" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_1-3" class="sa_grid-item">
+                <img 
+                    src="images/circle.png" 
+                    alt="circle" 
+                    id="circle1" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_1-4" class="sa_grid-item">
+                <img 
+                    src="images/star.jfif" 
+                    alt="star" 
+                    id="star1" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_2-1" class="sa_grid-item">
+                <img 
+                    src="images/square.jpg" 
+                    alt="square" 
+                    id="square2" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_2-2" class="sa_grid-item">
+                <img 
+                    src="images/triangle.png" 
+                    alt="triangle" 
+                    id="triangle2" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_2-3" class="sa_grid-item">
+                <img 
+                    src="images/circle.png" 
+                    alt="circle" 
+                    id="circle2" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_2-4" class="sa_grid-item">
+                <img 
+                    src="images/star.jfif" 
+                    alt="star" 
+                    id="star2" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_3-1" class="sa_grid-item">
+                <img 
+                    src="images/square.jpg" 
+                    alt="square" 
+                    id="square3" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_3-2" class="sa_grid-item">
+                <img 
+                    src="images/triangle.png" 
+                    alt="triangle" 
+                    id="triangle3" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_3-3" class="sa_grid-item">
+                <img 
+                    src="images/circle.png" 
+                    alt="circle" 
+                    id="circle3" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_3-4" class="sa_grid-item">
+                <img 
+                    src="images/star.jfif" 
+                    alt="star" 
+                    id="star3" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_4-1" class="sa_grid-item">
+                <img 
+                    src="images/square.jpg" 
+                    alt="square" 
+                    id="square4" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_4-2" class="sa_grid-item">
+                <img 
+                    src="images/triangle.png" 
+                    alt="triangle" 
+                    id="triangle4" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_4-3" class="sa_grid-item">
+                <img 
+                    src="images/circle.png" 
+                    alt="circle" 
+                    id="circle4" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+            <div id="sa_4-4" class="sa_grid-item">
+                <img 
+                    src="images/star.jfif" 
+                    alt="star" 
+                    id="star4" 
+                    draggable="true" 
+                    ondragstart="onDragStart(event);">
+            </div>
+        </div>
+    </div>
+    <div id="play_again">
+        <input 
+            id="play_again_button" 
+            type="button" 
+            value="Play Again" 
+            onclick="location.reload();"> 
+    </div>
+    <!-- <article>
+        <h2>Instructions</h2>
+        <p>Add instructions from Carsten here</p>
+    </article>
+    <footer>
+        <p>What do I want to put in the footer.</footer></p>
+    </footer>
+    -->
+</body>
+</html>

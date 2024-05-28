@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carsten</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+
+</head>
+<body>
+    <header>
+        <h1>Carsten's Game</h1>
+<!--        <p>Add link to the instructions</p> -->
+    </header>
+    <div id="game">
+        <div id="playing_table">
+            <div id="pt_1-1" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_1-2" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_1-3" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_1-4" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_2-1" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_2-2" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_2-3" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_2-4" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_3-1" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_3-2" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_3-3" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_3-4" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_4-1" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_4-2" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_4-3" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div id="pt_4-4" class="pt_grid-item" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        </div>
+
+        <div id="staging_area">
+            <div id="sa_1-1" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag01" src="images/square.jpg" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_1-2" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag02" src="images/triangle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>    
+            <div id="sa_1-3" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag03" src="images/circle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_1-4" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag04" src="images/star.jfif" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_2-1" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag05" src="images/square.jpg" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_2-2" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag06" src="images/triangle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_2-3" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag07" src="images/circle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_2-4" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag08" src="images/star.jfif" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_3-1" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag09" src="images/square.jpg" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_3-2" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag10" src="images/triangle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_3-3" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag11" src="images/circle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_3-4" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag12" src="images/star.jfif" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_4-1" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag13" src="images/square.jpg" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_4-2" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag14" src="images/triangle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_4-3" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag15" src="images/circle.png" alt="square" draggable="true" ondragstart="drag(event)"></div>
+            <div id="sa_4-4" class="sa_grid-item"ondrop="drop(event)" ondragover="allowDrop(event)"><img id="drag16" src="images/star.jfif" alt="square" draggable="true" ondragstart="drag(event)"></div>
+        </div>
+    </div>
+<!--
+    <div id="play_again">
+        <button>Play Again</button>
+    </div>
+    <article>
+        <h2>Instructions</h2>
+        <p>Add instructions from Carsten here</p>
+    </article>
+    <footer>
+        <p>What do I want to put in the footer.</footer></p>
+    </footer>
+-->
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carsten</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- To Do Items
+        x- Need to make it so that only one item can be placed in a box -->
+
+
+    <style>
+        #box {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: #ccc;
+        }
+    </style>
+
+    <script>
+        window.onload = function() {
+            // find the element that you want to drag.
+            var box = document.getElementById('box');
+    
+            /* listen to the touchMove event,
+            every time it fires, grab the location
+            of touch and assign it to box */
+    
+            box.addEventListener('touchmove', function(e) {
+                // grab the location of touch
+                var touchLocation = e.targetTouches[0];
+        
+                // assign box new coordinates based on the touch.
+                box.style.left = touchLocation.pageX + 'px';
+                box.style.top = touchLocation.pageY + 'px';
+            })
+    
+            /* record the position of the touch
+            when released using touchend event.
+            This will be the drop position. */
+    
+            box.addEventListener('touchend', function(e) {
+                // current box position.
+                var x = parseInt(box.style.left);
+                var y = parseInt(box.style.top);
+            })
+        }
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1>Carsten's Game</h1>
+<!--        <p>Add link to the instructions</p> -->
+    </header>
+    <body>
+        <div id="container">
+            <p>Toggle your browser device toolbar and change device to any mobile or tablet from your browser inspect.</p>
+            <div id="box"></div>
+        </div>
+    </body>
+    <div id="game">
+        <div id="playing_table">
+            <div 
+                id="pt_1-1" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-2" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-3" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_1-4" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-1" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-2" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-3" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_2-4" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-1" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-2" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-3" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_3-4" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-1" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-2" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-3" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+            <div 
+                id="pt_4-4" 
+                class="pt_grid-item" 
+                ondrop="drop(event);" 
+                ondragover="allowDrop(event);"
+            ></div>
+        </div>
+
+        <div id="staging_area">
+            <div id="sa_1-1" class="sa_grid-item">
+                <div class="box">
+                        <img 
+                            src="images/square.jpg" 
+                            alt="square"
+                            id="square1"> 
+                </div>
+            </div>
+            <div id="sa_1-2" class="sa_grid-item">
+                <div class="box"
+                    id="triangle1">
+                        <img src="images/triangle.png" alt="triangle"> 
+                </div>
+            </div>
+            <div id="sa_1-3" class="sa_grid-item">
+                <div class="box"
+                    id="circle1">
+                        <img src="images/circle.png" alt="circle"> 
+                </div>
+            </div>
+            <div id="sa_1-4" class="sa_grid-item">
+                <div class="box"
+                    id="star1">
+                        <img src="images/star.jfif" alt="star"> 
+                </div>
+            </div>
+            <div id="sa_2-1" class="sa_grid-item">
+                <div class="box" 
+                    id="square2">
+                        <img src="images/square.jpg" alt="square"> 
+                </div>
+            </div>
+            <div id="sa_2-2" class="sa_grid-item">
+                <div class="box"
+                    id="triangle2">
+                        <img src="images/triangle.png" alt="triangle"> 
+                </div>
+            </div>
+            <div id="sa_2-3" class="sa_grid-item">
+                <div class="box"
+                    id="circle2">
+                        <img src="images/circle.png" alt="circle"> 
+                </div>
+            </div>
+            <div id="sa_2-4" class="sa_grid-item">
+                <div class="box"
+                    id="star2">
+                        <img src="images/star.jfif" alt="star"> 
+                </div>
+            </div>
+            <div id="sa_3-1" class="sa_grid-item">
+                <div class="box" 
+                    id="square3">
+                        <img src="images/square.jpg" alt="square"> 
+                </div>
+            </div>
+            <div id="sa_3-2" class="sa_grid-item">
+                <div class="box"
+                    id="triangle3">
+                        <img src="images/triangle.png" alt="triangle"> 
+                </div>
+            </div>
+            <div id="sa_3-3" class="sa_grid-item">
+                <div class="box"
+                    id="circle3">
+                        <img src="images/circle.png" alt="circle"> 
+                </div>
+            </div>
+            <div id="sa_3-4" class="sa_grid-item">
+                <div class="box"
+                    id="star3">
+                        <img src="images/star.jfif" alt="star"> 
+                </div>
+            </div>
+            <div id="sa_4-1" class="sa_grid-item">
+                <div class="box" 
+                    id="square4">
+                        <img src="images/square.jpg" alt="square"> 
+                </div>
+            </div>
+            <div id="sa_4-2" class="sa_grid-item">
+                <div class="box"
+                    id="triangle4">
+                        <img src="images/triangle.png" alt="triangle"> 
+                </div>
+            </div>
+            <div id="sa_4-3" class="sa_grid-item">
+                <div class="box"
+                    id="circle4">
+                        <img src="images/circle.png" alt="circle"> 
+                </div>
+            </div>
+            <div id="sa_4-4" class="sa_grid-item">
+                <div class="box"
+                    id="star4">
+                        <img src="images/star.jfif" alt="star"> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="play_again">
+        <input 
+            id="play_again_button" 
+            type="button" 
+            value="Play Again" 
+            onclick="location.reload();"> 
+    </div>
+    <!-- <article>
+        <h2>Instructions</h2>
+        <p>Add instructions from Carsten here</p>
+    </article>
+    <footer>
+        <p>What do I want to put in the footer.</footer></p>
+    </footer>
+    -->
+</body>
+</html>
