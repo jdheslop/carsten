@@ -1,0 +1,53 @@
+Hello! I am a huge fan of ChatGPT. Thanks for your help in making me more efficient and teaching me to be a better programmer.
+
+Could you please help me by generating the code for the following web site?
+
+General Information:
+1. I will copy the HTML, CSS, JavaScript, and data (if necessary) into seperate files.
+2. The HTML will be in the main directory. The CSS will be in a subdirectory named "styles". The JavaScript will be in a subdirectory named "scripts". The data (if necessary) will be in a subdirectory named "data".
+3. If necessary, there can be multiple HTML, CSS, JavaScript, or data files.
+4. At the start of each file please include the following as a comment in the code: "Assisted by ChatGPT, an AI language model by OpenAI." 
+5. Please include necessary comments in the code.
+6. Additional detailed descriptions outside of the code are helpful, but not necessary.
+7. The website should be responsive so that it can be used on both mobile and larger devices.
+8. The website will primarily be used on mobile devices in portrait orientation.
+9. Please select colors that are subdued, but engaging.
+10. Please use CSS variables for each of the colors.
+11. Please select an appropriate font.
+12. Please let me know if you have any questions or suggestions.
+
+
+Page Description:
+1. The <title> should be "Carsten's Cube"
+2. Please feel free to make improvements to description content: <meta name="description" content="">
+3. <meta name="author" content="Jackson Heslop">
+4. <meta property="og:title" content="Carsten's Cube">
+5. <meta property="og:type" content="website">
+6. <meta property="og:image" content="https://thekleiderschrank.com/fun/carsten/images/logo.jpg">
+    <meta property="og:url" content="https://thekleiderschrank.com/fun/carsten_EN.html">
+7. <link rel="icon" href="favicon.ico">
+8. The page should have five sections: a header, a playing field, an information window, a staging area, and a footer. The content should all be centered.
+9. The header should be small and have the text "Carsten's Cube"
+10. The playing field should be a grid with four rows and four columns. The borders should be shown. The cells that have equal heights and widths and should be large enough to hold the shapes described below in number 13. 
+11. The information window will have content that will change as described in the Process Description below. It should be located between the playing field and the staging area.
+12. The information window will have a small info icon positioned on the right side. When the user clicks on this icon, then it will open an overlay that provides the rules of the game and can be closed by clicking on X in the top right corner. Please provide a suggestion for the game rules.
+13. The initial content in the information window should be: "Welcome to Carsten's Cube!<br>Player 1, please select your first shape."
+14. The staging area is should be a grid with four rows and four columns that have equal heights and widths.
+15. The first column of the staging area has a blue square in each row. The second column has a green triangle in each row. The third column has a red circle in each row. The fourth column has a yellow star in each row. The figures should all be the same size.
+16. When using a normal mobile phone, it should be possible to see the playing field, information window, and staging area at the same time. 
+17. The footer has a link to thekleiderschrank.com. It also has a small image (images/german.png) in the upper right corner. The "alt" is "Flag to change languages". This image is an <a>. The href is "carsten_DE.html". The aspect ratio of the image should be maintained. The background color of the footer should be #807475 and the font color should be #fbfbeb.
+
+
+Process Description:
+1. There are two players that play the game: Player 1 and Player 2.
+2. The player starts by clicking on one of the shapes in the staging area.
+3. This shape should then be removed from the staging area and be displayed in the information window. The information window should also include the text: "Where on the board would you like to place this shape?" If the player clicks on another shape in the staging area than this will be added to the information window and the shape from the information window would be returned to its place in the staging area.
+4. The player clicks on one of the cells in the playing field. The shape from the information window is moved to this cell and a highlight is added to distinguish it from the other shapes in the playing field. The shape is removed from the information window and a button is display that says "Confirm the correct placement of the shape". If the player selects a different cell in the playing field then the shape will be moved to this cell. It should not be possible to click on or select shapes from the staging area.
+5. When the player clicks the button to confirm the correct placement of the shape, the highlight should be removed from the shape. 
+6. The program should check to see if the player has won. A player wins when there is a row, column, or diagonal of four shapes that are either all the same shape or if all of the shapes are different from each other. If a player has won, then the information window will congratulate the player that won and display a "Play Again" button. If the player presses the button then the game resets by removing all shapes from the playing area and placing them in the starting positions in the staging area. The information window displays the original message.
+7. If a player has not won, then the process repeats for the next player.
+8. If all shapes have been added to the playing field and neither player has won, then the information window should display a message that they have tied and  and display a "Play Again" button. If the player presses the button then the game resets by removing all shapes from the playing area and placing them in the starting positions in the staging area. The information window displays the original message.
+
+
+
+
