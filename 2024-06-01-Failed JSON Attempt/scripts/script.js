@@ -9,9 +9,16 @@ let turnCounter = 0;
 const maxTurns = 16; // Total number of turns before tie condition
 let gameOver = false; // Variable to track if the game is over
 
+const lang = document.documentElement.lang || 'en';  // Default to 'en' if no lang attribute is found
+let messages = {};
+
+//let messagesJSON = "https://thekleiderschrank.com/fun/carsten/data/messages.json"
+//let messagesJSON = "data/messages.json"
+let messagesJSON = "https://jdheslop.github.io/carsten/data/messages.json"
+
 
 // Function to initialize event listeners
-function initializeListeners() {
+async function initializeListeners() {
     // Check if the overlay has been closed previously
     if (sessionStorage.getItem('overlayClosed') !== 'true') {
         document.getElementById('overlay').style.display = 'flex';
@@ -34,7 +41,24 @@ function initializeListeners() {
 
     // Add click listener to close overlay
     document.getElementById('close-overlay').addEventListener('click', closeOverlay);
+
+    // Initialize the game state
+    updateInfoWindow('placement');
 }
+
+
+async function loadMessages() {
+    try {
+        const response = await fetch(messagesJSON); 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        messages = await response.json();
+    } catch (error) {
+        console.error('Error loading messages:', error);
+    }
+}
+
 
 // Function to select a shape from the staging area
 function selectShape(event) {
@@ -204,28 +228,41 @@ function resetGame() {
 }
 
 
+// Function to get the message in the correct language
+function getMessage(key) {
+    if (!messages[key]) {
+        console.error(`Message key "${key}" not found in messages object.`);
+        return `Message key "${key}" not found.`; // Return a fallback message
+    }
+    const messageObject = messages[key].find(msg => msg[lang]);
+    return messageObject ? messageObject[lang] : messages[key][0].en; // Default to English if language not found
+}
+
+
 // Function to update the information window
-function updateInfoWindow(content, shapeElement = null) {
+function updateInfoWindow(key, shapeElement = null) {
     const infoText = document.getElementById('info-text');
-    const gridContainer = document.querySelector("#info-text")
+    const gridContainer = document.querySelector("#info-text");
     infoText.innerHTML = ''; // Clear previous content
-    gridContainer.style.gridTemplateColumns = "1fr"
+    gridContainer.style.gridTemplateColumns = "1fr";
 
     if (shapeElement) {
         shapeElement.style.display = 'inline-block';
         shapeElement.style.verticalAlign = 'middle'; // Align shape vertically centered
         infoText.appendChild(shapeElement);
 
-        gridContainer.style.gridTemplateColumns = "1fr 3fr"
+        gridContainer.style.gridTemplateColumns = "1fr 3fr";
     }
 
     const textContainer = document.createElement('div');
     textContainer.style.display = 'inline-block';
     textContainer.style.verticalAlign = 'middle'; // Align text vertically centered
+    const content = getMessage(key).replace('${currentPlayer}', currentPlayer); // Replace placeholder with current player
     textContainer.innerHTML = content;
 
     infoText.appendChild(textContainer);
 }
+
 
 // Function to show the rules overlay
 function showOverlay() {
@@ -239,5 +276,9 @@ function closeOverlay() {
 }
 
 // Initialize event listeners on page load
-window.onload = initializeListeners;
+window.onload = async () => {
+    await loadMessages();
+    initializeListeners();
+};
+
 

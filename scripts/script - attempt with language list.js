@@ -9,6 +9,22 @@ let turnCounter = 0;
 const maxTurns = 16; // Total number of turns before tie condition
 let gameOver = false; // Variable to track if the game is over
 
+let langText = [];
+let englishText = [
+    "Player ${currentPlayer}:<br>Where on the board would you like to place this shape?",
+    "Player ${currentPlayer}:<br>Are you finished?</button>",
+    "Player ${currentPlayer} wins!<br><button id=\"play-again\">Play Again</button>",
+    "Player ${currentPlayer}:<br>Please select your next shape.",
+    "It's a tie!<br><button id=\"play-again\">Play Again</button>"
+];
+let germanText = [
+    "Spieler ${currentPlayer}:<br>Wo möchtest Du diese Form auf dem Spielfeld platzieren?",
+    "Spieler ${currentPlayer}:<br>Bist Du fertig?</button>",
+    "Spieler ${currentPlayer} gewinnt!<br><button id=\"play-again\">Nochmal spielen</button>",
+    "Spieler ${currentPlayer}:<br>Bitte wähle deine nächste Form aus.",
+    "Es ist ein Unentschieden!<br><button id=\"play-again\">Nochmal spielen</button>"
+];
+
 
 // Function to initialize event listeners
 function initializeListeners() {
@@ -34,6 +50,20 @@ function initializeListeners() {
 
     // Add click listener to close overlay
     document.getElementById('close-overlay').addEventListener('click', closeOverlay);
+
+    // Call the function to set the langText based on the language
+    setLangText();
+}
+
+// Function to detect the language and set the langText
+function setLangText() {
+    let htmlLang = document.documentElement.lang; // Get the language from <html lang="">
+    
+    if (htmlLang === 'de') {
+        langText = germanText;
+    } else {
+        langText = englishText;
+    }
 }
 
 // Function to select a shape from the staging area
@@ -61,7 +91,7 @@ function selectShape(event) {
     // Clone the selected shape and display it in the info window
     const clonedShape = selectedShapeElement.cloneNode(true);
     clonedShape.classList.remove('selected');
-    updateInfoWindow(`Player ${currentPlayer}:<br>Where on the board would you like to place this shape?`, clonedShape);
+    updateInfoWindow(`${langText[0]}`, clonedShape);
 
     selectedShapeElement.style.visibility = 'hidden';
 }
@@ -94,7 +124,7 @@ function placeShape(event) {
         event.target.appendChild(highlightStar);
 
         // Show confirm button
-        updateInfoWindow(`<button id="confirm-placement">Player ${currentPlayer}:<br>Are you finished?</button>`); 
+        updateInfoWindow(`${langText[1]}`); 
 
         // Add event listener to confirm button
         document.getElementById('confirm-placement').addEventListener('click', confirmPlacement);
@@ -123,7 +153,7 @@ function confirmPlacement() {
 
     // Check for win condition
     if (checkWinCondition()) {
-        updateInfoWindow(`Player ${currentPlayer} wins!<br><button id="play-again">Play Again</button>`);
+        updateInfoWindow(`${langText[2]}`);
         document.getElementById('play-again').addEventListener('click', resetGame);
         gameOver = true; // Set gameOver to true
     } else {
@@ -132,13 +162,13 @@ function confirmPlacement() {
 
         // Check for tie condition
         if (turnCounter === maxTurns) {
-            updateInfoWindow(`It's a tie!<br><button id="play-again">Play Again</button>`);
+            updateInfoWindow(`${langText[4]}`);
             document.getElementById('play-again').addEventListener('click', resetGame);
             gameOver = true; // Set gameOver to true
         } else {
             // Switch player
             currentPlayer = currentPlayer === 1 ? 2 : 1;
-            updateInfoWindow(`Player ${currentPlayer}:<br>Please select your next shape.`);
+            updateInfoWindow(`{langText[3]}`);
         }
     }
 
