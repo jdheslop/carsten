@@ -1,0 +1,47 @@
+{
+    "placement" : [
+        {
+            "en" : "Player ${currentPlayer}:<br>Where on the board would you like to place this shape?"
+        },
+        {
+            "de" : "Spieler ${currentPlayer}:<br>Wo möchtest Du diese Form auf dem Spielfeld platzieren?"
+        }
+    ],
+
+    "finished" : [
+        {
+            "en" : "Player ${currentPlayer}:<br>Are you finished?</button>"
+        },
+        {
+            "de" : "Spieler ${currentPlayer}:<br>Bist Du fertig?</button>"
+        }
+    ],
+
+    "winner" : [
+        {
+            "en" : "Player ${currentPlayer} wins!<br><button id=\"play-again\">Play Again</button>"
+        },
+        {
+            "de" : "Spieler ${currentPlayer} gewinnt!<br><button id=\"play-again\">Nochmal spielen</button>"
+        }
+    ],
+
+    "nextShape" : [
+        {
+            "en" : "Player ${currentPlayer}:<br>Please select your next shape."
+        },
+        {
+            "de" : "Spieler ${currentPlayer}:<br>Bitte wähle deine nächste Form aus."
+        }
+    ],
+
+    "tie" : [
+        {
+            "en" : "It's a tie!<br><button id=\"play-again\">Play Again</button>"
+        },
+        {
+            "de" : "Es ist ein Unentschieden!<br><button id=\"play-again\">Nochmal spielen</button>"
+        }
+    ]
+}
+

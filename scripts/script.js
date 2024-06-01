@@ -4,11 +4,25 @@
 let currentPlayer = 1;
 let selectedShape = null;
 let selectedShapeElement = null;
+let selectedCell = null; // Used to track the selected cell
 let turnCounter = 0;
 const maxTurns = 16; // Total number of turns before tie condition
+let gameOver = false; // Variable to track if the game is over
+let messages = {};
+//let messagesJSON = "https://thekleiderschrank.com/fun/carsten/data/messages.json"
+let messagesJSON = "data/messages.json"
 
 // Function to initialize event listeners
-function initializeListeners() {
+async function initializeListeners() {
+    await loadMessages(); // Load messages before initializing listeners
+    
+    // Check if the overlay has been closed previously
+    if (sessionStorage.getItem('overlayClosed') !== 'true') {
+        document.getElementById('overlay').style.display = 'flex';
+    } else {
+        document.getElementById('overlay').style.display = 'none';
+    }
+
     // Add click listeners to staging area cells
     document.querySelectorAll('.staging-cell').forEach(cell => {
         cell.addEventListener('click', selectShape);
@@ -24,10 +38,29 @@ function initializeListeners() {
 
     // Add click listener to close overlay
     document.getElementById('close-overlay').addEventListener('click', closeOverlay);
+
+    // Initialize the game state
+    updateInfoWindow('placement');
 }
+
+
+async function loadMessages() {
+    try {
+        const response = await fetch(messagesJSON); 
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        messages = await response.json();
+    } catch (error) {
+        console.error('Error loading messages:', error);
+    }
+}
+
 
 // Function to select a shape from the staging area
 function selectShape(event) {
+    if (gameOver) return; // Prevent shape selection if the game is over
+    
     if (selectedShape) {
         // Remove shape from the cell in the playing field if exists
         const previouslyPlacedCell = document.querySelector('.selected-shape');
@@ -49,7 +82,7 @@ function selectShape(event) {
     // Clone the selected shape and display it in the info window
     const clonedShape = selectedShapeElement.cloneNode(true);
     clonedShape.classList.remove('selected');
-    updateInfoWindow(`Where on the board would you like to place this shape?`, clonedShape);
+    updateInfoWindow(`Player ${currentPlayer}:<br>Where on the board would you like to place this shape?`, clonedShape);
 
     selectedShapeElement.style.visibility = 'hidden';
 }
@@ -71,22 +104,27 @@ function placeShape(event) {
         clonedShape.classList.remove('selected');
         clonedShape.style.visibility = 'visible';
 
-        // Add a star to the center of the shape
-        const star = document.createElement('div');
-        star.className = 'star';
-        clonedShape.appendChild(star);
-
+        // Clear the cell's innerHTML and append the cloned shape
         event.target.innerHTML = '';
         event.target.appendChild(clonedShape);
         event.target.classList.add('selected-shape');
 
+        // Add a highlight star to the center of the cell
+        const highlightStar = document.createElement('div');
+        highlightStar.className = 'highlightStar';
+        event.target.appendChild(highlightStar);
+
         // Show confirm button
-        updateInfoWindow(`<button id="confirm-placement">Confirm the correct placement of the shape</button>`);
+        updateInfoWindow(`<button id="confirm-placement">Player ${currentPlayer}:<br>Are you finished?</button>`); 
 
         // Add event listener to confirm button
         document.getElementById('confirm-placement').addEventListener('click', confirmPlacement);
+
+        // Store the selected cell
+        selectedCell = event.target; // Add this line
     }
 }
+
 
 // Function to confirm shape placement
 function confirmPlacement() {
@@ -96,33 +134,39 @@ function confirmPlacement() {
     // Remove highlight and star from the placed shape
     const placedShape = document.querySelector('.selected-shape');
     placedShape.classList.remove('selected-shape');
-    const star = placedShape.querySelector('.star');
-    if (star) {
-        star.remove();
+    const highlightStar = placedShape.querySelector('.highlightStar');
+    if (highlightStar) {
+        highlightStar.remove();
     }
+
+    // Mark the cell as occupied by removing its event listener
+    selectedCell.removeEventListener('click', placeShape); // Add this line
 
     // Check for win condition
     if (checkWinCondition()) {
-        updateInfoWindow(`Player ${currentPlayer} wins! <button id="play-again">Play Again</button>`);
+        updateInfoWindow(`Player ${currentPlayer} wins!<br><button id="play-again">Play Again</button>`);
         document.getElementById('play-again').addEventListener('click', resetGame);
+        gameOver = true; // Set gameOver to true
     } else {
         // Increment turn counter
         turnCounter++;
 
         // Check for tie condition
         if (turnCounter === maxTurns) {
-            updateInfoWindow(`It's a tie! <button id="play-again">Play Again</button>`);
+            updateInfoWindow(`It's a tie!<br><button id="play-again">Play Again</button>`);
             document.getElementById('play-again').addEventListener('click', resetGame);
+            gameOver = true; // Set gameOver to true
         } else {
             // Switch player
             currentPlayer = currentPlayer === 1 ? 2 : 1;
-            updateInfoWindow(`Player ${currentPlayer}, please select your next shape.`);
+            updateInfoWindow(`Player ${currentPlayer}:<br>Please select your next shape.`);
         }
     }
 
     // Reset selected shape variables
     selectedShape = null;
     selectedShapeElement = null;
+    selectedCell = null; // Add this line to reset selectedCell
 }
 
 // Function to check win condition
@@ -141,7 +185,7 @@ function checkWinCondition() {
     // Function to check if all elements in an array are the same or all different
     function allSameOrDifferent(arr) {
         const uniqueShapes = new Set(arr);
-        return uniqueShapes.size === 1 || uniqueShapes.size === arr.length;
+        return uniqueShapes.size === 1 || (uniqueShapes.size === arr.length && arr.length === 4);
     }
 
     // Check each winning pattern
@@ -162,10 +206,14 @@ function resetGame() {
     currentPlayer = 1;
     selectedShape = null;
     selectedShapeElement = null;
+    selectedCell = null;
+    gameOver = false;
+    turnCounter = 0;
 
     document.querySelectorAll('.cell').forEach(cell => {
         cell.className = 'cell';
         cell.innerHTML = '';
+        cell.addEventListener('click', placeShape); // Re-enable event listener
     });
 
     document.querySelectorAll('.staging-cell').forEach(cell => {
@@ -176,44 +224,37 @@ function resetGame() {
     updateInfoWindow(`Welcome to Carsten's Cube!<br>Player 1, please select your first shape.`);
 }
 
+
+// Function to get the message in the correct language
+function getMessage(key) {
+    const messageObject = messages[key].find(msg => msg[lang]);
+    return messageObject ? messageObject[lang] : messages[key][0].en; // Default to English if language not found
+}
+
+
 // Function to update the information window
-function updateInfoWindow(content, shapeElement = null) {
+function updateInfoWindow(key, shapeElement = null) {
     const infoText = document.getElementById('info-text');
-    const gridContainer = document.querySelector("#info-text")
+    const gridContainer = document.querySelector("#info-text");
     infoText.innerHTML = ''; // Clear previous content
-    gridContainer.style.gridTemplateColumns = "1fr"
+    gridContainer.style.gridTemplateColumns = "1fr";
 
     if (shapeElement) {
         shapeElement.style.display = 'inline-block';
         shapeElement.style.verticalAlign = 'middle'; // Align shape vertically centered
         infoText.appendChild(shapeElement);
 
-        gridContainer.style.gridTemplateColumns = "1fr 3fr"
+        gridContainer.style.gridTemplateColumns = "1fr 3fr";
     }
 
     const textContainer = document.createElement('div');
     textContainer.style.display = 'inline-block';
     textContainer.style.verticalAlign = 'middle'; // Align text vertically centered
+    const content = getMessage(key).replace('${currentPlayer}', currentPlayer); // Replace placeholder with current player
     textContainer.innerHTML = content;
 
     infoText.appendChild(textContainer);
 }
-
-
-/*
-<div class="info-window">
-    <p id="info-text">
-        <div class="staging-cell blue" id="blue-1" style="display: inline-block; vertical-align: middle;"></div>
-        <div style="display: inline-block; vertical-align: middle;">Where on the board would you like to place this shape?</div>
-    </p>
-    <span class="info-icon" id="info-icon">ℹ️</span>
-</div>
-
-<div class="info-window">
-    <p id="info-text">Welcome to Carsten's Cube!<br>Player 1, please select your first shape.</p>
-    <span class="info-icon" id="info-icon">ℹ️</span>
-</div>
-*/
 
 
 // Function to show the rules overlay
@@ -224,6 +265,7 @@ function showOverlay() {
 // Function to close the rules overlay
 function closeOverlay() {
     document.getElementById('overlay').style.display = 'none';
+    sessionStorage.setItem('overlayClosed', 'true'); // Save the state in session storage
 }
 
 // Initialize event listeners on page load
