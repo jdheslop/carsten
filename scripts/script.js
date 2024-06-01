@@ -8,14 +8,17 @@ let selectedCell = null; // Used to track the selected cell
 let turnCounter = 0;
 const maxTurns = 16; // Total number of turns before tie condition
 let gameOver = false; // Variable to track if the game is over
+
+const lang = document.documentElement.lang || 'en';  // Default to 'en' if no lang attribute is found
 let messages = {};
+
 //let messagesJSON = "https://thekleiderschrank.com/fun/carsten/data/messages.json"
 let messagesJSON = "data/messages.json"
+//let messagesJSON = "https://jdheslop.github.io/carsten/data/messages.json"
+
 
 // Function to initialize event listeners
 async function initializeListeners() {
-    await loadMessages(); // Load messages before initializing listeners
-    
     // Check if the overlay has been closed previously
     if (sessionStorage.getItem('overlayClosed') !== 'true') {
         document.getElementById('overlay').style.display = 'flex';
@@ -269,6 +272,9 @@ function closeOverlay() {
 }
 
 // Initialize event listeners on page load
-window.onload = initializeListeners;
+window.onload = async () => {
+    await loadMessages();
+    initializeListeners();
+};
 
 
